@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Browserify Presentation</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link href="css/impress-demo.css" rel="stylesheet">
+    <link href="css/tomorrow-night-eighties.css" rel="stylesheet">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <style>
+      .slide pre {
+        height: 440px;
+        text-align: left;
+        position: absolute;
+        bottom: 81px;
+        left: 61px;
+        width: 772px;
+        overflow: auto;
+      }
+
+      .slide pre.inline-example {
+        position: initial;
+      }
+
+      .step pre code {
+        text-align: left;
+        font-family: 'PT Mono';
+        font-size: 18px;
+        line-height: 22px;
+        border-radius: 10px;
+      }
+    </style>
+	</head>
+	<body class="impress-not-supported">
+    <div class="fallback-message">
+      <p>
+        Your browser <b>doesn't support the features required</b> by
+        impress.js, so you are presented with a simplified version of this
+        presentation.
+      </p>
+      <p>
+        For the best experience please use the latest <b>Chrome</b>,
+        <b>Safari</b> or <b>Firefox</b> browser.
+      </p>
+    </div>
+
+		<div id="impress">
+			<div class="step" data-x="0" data-y="0">
+				<div style="text-align: center">
+          <img src="img/wizard_hat.png">
+          <img src="img/browserify.png">
+        </div>
+			</div>
+
+			<div class="step" data-x="1600" data-y="0">
+				<ul>
+				  <li>&#8226; JavaScript module bundler</li>
+          <li>&#8226; Improves code structure</li>
+          <li>&#8226; Separates variables from global scope</li>
+          <li>&#8226; Use node modules client-side</li>
+				</ul>
+			</div>
+
+			<div class="step" data-x="500" data-y="-700">
+				Simple Example
+
+        <pre>
+          <code class="js actionscript">
+            var $ = require('jquery');
+
+            $('.selector').doSomething();
+          </code>
+        </pre>
+			</div>
+
+			<div class="step" data-x="500" data-y="-1600" data-scale="0.5">
+				Browserify In Action
+
+        <pre>
+          <code class="js actionscript">
+            var React = require('react');
+            var ThumbnailList = require('./thumbnail-list');
+
+            var options = {
+              thumbnailData: [
+                {
+                  title: 'See Courses',
+                  number: 32,
+                  header: 'Learn React',
+                  description: 'React is a...',
+                  imageUrl: 'http://formatjs.io/img/react.svg'
+                },
+                {
+                  title: 'See Courses',
+                  number: 25,
+                  header: 'Learn Gulp',
+                  description: 'Gulp will speed ...',
+                  imageUrl: 'http://brunch.io/images/others/gulp.png'
+                }
+              ]
+            };
+
+            // React, please render this class
+            var element = React.createElement(ThumbnailList, options);
+
+            // React, after you render this class, please place it in my body tag
+            React.render(element, document.querySelector('.row'));
+          </code>
+        </pre>
+			</div>
+
+			<div class="step" data-x="0" data-y="-800" data-rotate="90">
+        Dependencies
+
+        <pre>
+          <code class="js actionscript">
+            var React = require('react');
+            var Thumbnail = require('./thumbnail');
+
+            module.exports = React.createClass({
+              render: function() {
+                var list = this.props.thumbnailData.map(function(thumbnailProps) {
+                  return <Thumbnail {...thumbnailProps} />
+                });
+
+                return <div>
+                  {list}
+                </div>
+              }
+            });
+          </code>
+        </pre>
+			</div>
+
+			<div class="step" data-x="600" data-y="-800" data-rotate-x="60" data-rotate-y="60" data-rotate-z="30">
+				Exporting objects with methods
+
+        <pre>
+          <code class="js actionscript">
+            var Fetch = require('whatwg-fetch');
+            var rootUrl = 'https://api.imgur.com/3/';
+            var apiKey = '1c2510df7fefd49';
+
+            module.exports = {
+              get: function(url) {
+                return fetch(rootUrl + url, {
+                  headers: {
+                    'Authorization': 'Client-ID' + apiKey
+                  }
+                })
+                .then(function(response) {
+                  return response.json();
+                });
+              }
+            }
+          </code>
+        </pre>
+			</div>
+
+			<div class="step" data-x="-2600" data-y="-800" data-rotate-x="30" data-rotate-y="-60" data-rotate-z="90" data-scale="4">
+				<h2 style="font-size: 100px;">Alternatives</h2>
+
+        <ul>
+          <li>Require JS (AMD)</li>
+          <li>System JS</li>
+        </ul>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="js/impress.js"></script>
+    <script type="text/javascript" src="js/highlight.pack.js"></script>
+
+		<script>
+      hljs.initHighlightingOnLoad();
+
+      impress().init();
+    </script>
+	</body>
+</html>
